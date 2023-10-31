@@ -1,14 +1,8 @@
 #!/usr/bin/python3
-""" Locked Class  """
+''' Locked class module'''
 
 
 class LockedClass:
-    """ Locked Class  """
+    '''Object that prevents dynamics attributes'''
 
-    def __setattr__(self, name, value):
-        """ set attribute method  """
-        if name == 'first_name':
-            super().__setattr__(name, value)
-        else:
-            raise AttributeError(f"'LockedClass' object has \
-no attribute '{name}'")
+    __slots__ = ['first_name']
