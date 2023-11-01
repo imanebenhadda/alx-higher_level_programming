@@ -1,67 +1,57 @@
 #!/usr/bin/python3
-"""Defines a matrix multiplication function."""
+"""This module compute the multiplication of two matrix.
+
+This module has one function matrix_mul.
+"""
 
 
 def matrix_mul(m_a, m_b):
-    """Multiply two matrices.
+    """Function matrix_mul.
+
+    This function will check valid arguments and
+    return the multiplication of two matrix.
 
     Args:
-        m_a (list of lists of ints/floats): The first matrix.
-        m_b (list of lists of ints/floats): The second matrix.
-    Raises:
-        TypeError: If either m_a or m_b is not a list of lists of ints/floats.
-        TypeError: If either m_a or m_b is empty.
-        TypeError: If either m_a or m_b has different-sized rows.
-        ValueError: If m_a and m_b cannot be multiplied.
+        m_a (2D array): The first parameter.
+        m_b (2D array): The second parameter
+
     Returns:
-        A new matrix representing the multiplication of m_a by m_b.
+        my_matrix: The return value is a new matrix
+
     """
-
-    if m_a == [] or m_a == [[]]:
+    my_matrix = []
+    my_row = []
+    m = 0
+    if (len(m_a) == 0 or len(m_a[0]) == 0):
         raise ValueError("m_a can't be empty")
-    if m_b == [] or m_b == [[]]:
+    if (len(m_b) == 0 or len(m_b[0]) == 0):
         raise ValueError("m_b can't be empty")
-
-    if not isinstance(m_a, list):
+    if (isinstance(m_a, list) is False):
         raise TypeError("m_a must be a list")
-    if not isinstance(m_b, list):
+    if (isinstance(m_b, list) is False):
         raise TypeError("m_b must be a list")
-
-    if not all(isinstance(row, list) for row in m_a):
+    if (isinstance(m_a[0], list) is False):
         raise TypeError("m_a must be a list of lists")
-    if not all(isinstance(row, list) for row in m_b):
+    if (isinstance(m_b[0], list) is False):
         raise TypeError("m_b must be a list of lists")
-
-    if not all((isinstance(ele, int) or isinstance(ele, float))
-               for ele in [num for row in m_a for num in row]):
-        raise TypeError("m_a should contain only integers or floats")
-    if not all((isinstance(ele, int) or isinstance(ele, float))
-               for ele in [num for row in m_b for num in row]):
-        raise TypeError("m_b should contain only integers or floats")
-
-    if not all(len(row) == len(m_a[0]) for row in m_a):
-        raise TypeError("each row of m_a must should be of the same size")
-    if not all(len(row) == len(m_b[0]) for row in m_b):
-        raise TypeError("each row of m_b must should be of the same size")
-
-    if len(m_a[0]) != len(m_b):
-        raise ValueError("m_a and m_b can't be multiplied")
-
-    inverted_b = []
-    for r in range(len(m_b[0])):
-        new_row = []
-        for c in range(len(m_b)):
-            new_row.append(m_b[c][r])
-        inverted_b.append(new_row)
-
-    new_matrix = []
-    for row in m_a:
-        new_row = []
-        for col in inverted_b:
-            prod = 0
-            for i in range(len(inverted_b[0])):
-                prod += row[i] * col[i]
-            new_row.append(prod)
-        new_matrix.append(new_row)
-
-    return (new_matrix)
+    la = len(m_a[0])
+    lb = len(m_b[0])
+    for i in range(len(m_a)):
+        if (len(m_a[i]) != len(m_b)):
+            raise ValueError("m_a and m_b can't be multiplied")
+        if (len(m_a[i]) != la):
+            raise TypeError("each row of m_a must be of the same size")
+        for j in range(len(m_b[0])):
+            if (len(m_b[j]) != lb):
+                raise TypeError("each row of m_b must be of the same size")
+            for z in range(len(m_b)):
+                if (type(m_a[i][z]) != int and type(m_a[i][z]) != float):
+                    raise TypeError("m_a should contain only integers or floats")
+                if (type(m_b[z][j]) != int and type(m_b[z][j]) != float):
+                    raise TypeError("m_b should contain only integers or floats")
+                m +=  m_a[i][z] * m_b[z][j]
+            my_row.append(m)
+            m = 0
+        my_matrix.append(my_row)
+        my_row = []
+    return my_matrix

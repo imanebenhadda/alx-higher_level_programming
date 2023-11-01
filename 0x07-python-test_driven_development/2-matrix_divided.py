@@ -1,46 +1,51 @@
 #!/usr/bin/python3
-"""Module for matrix_divided method"""
+"""This module has one function matrix_divided.
+
+The module has one function matrix_divided.
+"""
 
 
 def matrix_divided(matrix, div):
-    """Divides all elements of a matrix.
+    """Function matrix_divided.
+
+    This function divides all elements in the matrix by a
+    given integer:
 
     Args:
-        matrix: The matrix whoses elements are to be divided by div.
-        div: The dividing number.
-
-    Raises:
-        TypeError: if matrix is not a list of lists of int or float.
-        TypeError: if each row of matrix is not of same size.
-        TypeError: if div is neither an int nor float
-        ZeroDivisionError: if div is zero
+        matrix (matrix): 2D list of integer or floats.
+        div (int or float): Multiply each element
 
     Returns:
-        a new matrix with elements rounded to 2 decimal places.
+        matrix: The return value is a matrix
+
     """
-
-    error = "matrix must be a matrix (list of lists) of integers/floats"
-    if type(matrix) is not list or len(matrix) == 0 or not matrix[0]:
-        raise TypeError(error)
-    set_of_lens = set([])
-    for row in matrix:
-        if type(row) is not list:
-            raise TypeError(error)
-        for x in row:
-            if type(x) not in [int, float]:
-                raise TypeError("matrix must be a matrix (list of lists) " +
-                                "of integers/floats")
-        set_of_lens.add(len(row))
-
-    if len(set_of_lens) != 1:
-        raise TypeError("Each row of the matrix must have the same size")
-
-    if type(div) not in [int, float]:
-        raise TypeError("div must be a number")
-
-    if div == 0:
+    str1 = "matrix must be a matrix (list of lists)"
+    str2 = "of integers/floats"
+    my_matrix = []
+    my_row = []
+    if (len(matrix) == 0):
+        raise TypeError(str1 + " " + str2)
+    if (type(matrix[0]) != list):
+        raise TypeError(str1 + " " + str2)
+    if (len(matrix[0]) == 0):
+        raise TypeError(str1 + " " + str2)
+    if (div == 0):
         raise ZeroDivisionError("division by zero")
-
-    new_matrix = [[round(x / div, 2) for x in row] for row in matrix]
-
-    return new_matrix
+    if ((type(div) != int and type(div) != float) or div is None):
+        raise TypeError("div must be a number")
+    a = len(matrix[0])
+    for row in matrix:
+        if (type(row) != list):
+            raise TypeError(str1 + " " + str2)
+        if (len(row) == 0):
+            raise TypeError(str1 + " " + str2)
+        if (len(row) != a):
+            raise TypeError("Each row of the matrix must have the same size")
+        a = len(row)
+        for x in row:
+            if (type(x) != int and type(x) != float):
+                raise TypeError(str1 + " " + str2)
+            my_row.append(round((x / div), 2))
+        my_matrix.append(my_row)
+        my_row = []
+    return (my_matrix)

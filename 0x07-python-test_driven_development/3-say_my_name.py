@@ -1,12 +1,27 @@
 #!/usr/bin/python3
-""" say_my_name module contain say_my_name function """
+"""This module prints first name and last name.
+
+This module has one function say_my_name.
+"""
 
 
 def say_my_name(first_name, last_name=""):
-    """ function thats prints : My name is 'first name' 'last name' """
-    if not type(first_name) is str:
-        raise TypeError("first_name must be a string")
-    if not type(last_name) is str:
-        raise TypeError("last_name must be a string")
+    """Function say my name.
 
-    print("My name is {} {}".format(first_name, last_name))
+    This function check the right first and last name
+    and prints:
+
+    Args:
+        first_name (str): The first parameter has to be string.
+        last_name (str): The second parameter has to be string-
+
+    Returns:
+        not return
+
+    """
+    if (type(first_name) != str or first_name is None):
+        raise TypeError("first_name must be a string")
+    elif (type(last_name) != str or last_name is None):
+        raise TypeError("last_name must be a string")
+    else:
+        print("My name is {:s} {:s}".format(first_name, last_name))
