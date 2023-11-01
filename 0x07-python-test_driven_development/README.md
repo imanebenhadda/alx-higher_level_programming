@@ -1,28 +1,5 @@
-#Python - Test-driven development
+# Directory : 0x07-python-test_driven_development
 
-This is a Holberton School project to practice the following topics:
-Interactive test.
-Docstrings to create tests.
-Documentation for each module and function.
-Basic option flags to create tests .
-How to find edge cases.
+## Description
 
-## Installation
-
-Use the following line to run the test in linux terminal(file.txt is the doctest).
-
-```bash
-python3 -m doctest -v file.txt
-```
-
-## Usage
-
-Educational purposes
-
-## Tasks
-0. Integers addition : test for functions that adds two integers
-1. Divide a matrix: test for functions that divides the elements of two matrix
-2. Say my name: test for a function that prints My name is <first name> <last name>
-3. Print square: test for a function that prints a square with the character #.
-4. Text indentation: test for a function that prints a text with 2 new lines after each of these characters: ., ? and :
-5. Max integer - Unittest: test for max integer, for this exercise, add Unittests.
+This repository contains a collection of Python programs and modules developed using the test-driven development (TDD) approach. Each program is designed to solve specific problems while adhering to best practices in software development, including comprehensive unit testing.
