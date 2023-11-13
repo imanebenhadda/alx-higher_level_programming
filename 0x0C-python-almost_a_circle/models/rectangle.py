@@ -1,144 +1,148 @@
 #!/usr/bin/python3
-""" module doc for rectangle """
+"""This module contains a rectangle class"""
+
 from models.base import Base
 
 
 class Rectangle(Base):
-    """ class doc for rectangle """
+    """Represents a rectangle """
 
     def __init__(self, width, height, x=0, y=0, id=None):
-        """ func doc """
-        self.checks(width, height, x, y)
-        self.__width = width
-        self.__height = height
-        self.__x = x
-        self.__y = y
-        super().__init__(id)
-
-    def check_int(self, attr, val):
-        """ func doc """
-        if not isinstance(val, int):
-            raise TypeError(f"{attr} must be an integer")
-
-    def check_positive(self, attr, val):
-        """ func doc """
-        if val <= 0:
-            raise ValueError(f"{attr} must be > 0")
-
-    def check_positive_zero(self, attr, val):
-        """ func doc """
-        if val < 0:
-            raise ValueError(f"{attr} must be >= 0")
-
-    def checks(self, width, height, x, y):
-        """ func doc """
-        self.check_int("width", width)
-        self.check_int("height", height)
-        self.check_int("x", x)
-        self.check_int("y", y)
-        self.check_positive("width", width)
-        self.check_positive("height", height)
-        self.check_positive_zero("x", x)
-        self.check_positive_zero("y", y)
-
-    def area(self):
-        """ func doc """
-        return self.__width * self.__height
-
-    def display(self):
-        """ func doc """
-        string = ""
-        for i in range(0, self.__height+self.__y):
-            if self.__y > i:
-                string += "\n"
-                continue
-            for j in range(0, self.__width+self.__x):
-                if j >= self.__x:
-                    string += "#"
-                else:
-                    string += " "
-            if i == self.__height+self.__y-1:
-                string += "\n"
-                break
-            string += "\n"
-        print(string, end="")
-
-    def __str__(self):
-        """ func doc """
-        return f"[Rectangle] ({self.id}) \
-{self.__x}/{self.__y} - {self.__width}/{self.__height}"
-
-    def update(self, *args, **kwargs):
-        """ func doc """
-        if len(args) == 0:
-            id = kwargs["id"] if "id" in kwargs else self.id
-            super().__init__(id)
-            width = kwargs["width"] if "width" in kwargs else self.__width
-            height = kwargs["height"] if "height" in kwargs else self.__height
-            x = kwargs["x"] if "x" in kwargs else self.__x
-            y = kwargs["y"] if "y" in kwargs else self.__y
-        else:
-            if len(args) >= 1:
-                super().__init__(args[0])
-            width = args[1] if len(args) >= 2 else self.__width
-            height = args[2] if len(args) >= 3 else self.__height
-            x = args[3] if len(args) >= 4 else self.__x
-            y = args[4] if len(args) >= 5 else self.__y
-        self.checks(width, height, x, y)
+        """Initializes attributes of the object"""
         self.width = width
         self.height = height
         self.x = x
         self.y = y
+        super().__init__(id)
 
-    def to_dictionary(self):
-        """ func doc """
-        return {'x': self.x, 'y': self.y, 'id': self.id,
-                'height': self.height, 'width': self.width}
-
+    # List of getter functions
     @property
     def width(self):
-        """ func doc """
+        """Gets the value for width"""
         return self.__width
-
-    @width.setter
-    def width(self, val):
-        """ func doc """
-        self.check_int("width", val)
-        self.check_positive("width", val)
-        self.__width = val
 
     @property
     def height(self):
-        """ func doc """
+        """Gets the value for height"""
         return self.__height
-
-    @height.setter
-    def height(self, val):
-        """ func doc """
-        self.check_int("height", val)
-        self.check_positive("height", val)
-        self.__height = val
 
     @property
     def x(self):
-        """ func doc """
+        """Gets the value for x"""
         return self.__x
-
-    @x.setter
-    def x(self, val):
-        """ func doc """
-        self.check_int("x", val)
-        self.check_positive_zero("x", val)
-        self.__x = val
 
     @property
     def y(self):
-        """ func doc """
+        """Gets the value for y"""
         return self.__y
 
+    # List of setter functions
+    @width.setter
+    def width(self, value):
+        """Sets the value for width"""
+        if (type(value) is not int):
+            raise TypeError("width must be an integer")
+
+        if value <= 0:
+            raise ValueError("width must be > 0")
+
+        self.__width = value
+
+    @height.setter
+    def height(self, value):
+        """Sets the value for height"""
+        if (type(value) is not int):
+            raise TypeError("height must be an integer")
+
+        if value <= 0:
+            raise ValueError("height must be > 0")
+
+        self.__height = value
+
+    @x.setter
+    def x(self, value):
+        """Sets the value for x"""
+        if (type(value) is not int):
+            raise TypeError("x must be an integer")
+
+        if value < 0:
+            raise ValueError("x must be >= 0")
+
+        self.__x = value
+
     @y.setter
-    def y(self, val):
-        """ func doc """
-        self.check_int("y", val)
-        self.check_positive_zero("y", val)
-        self.__y = val
+    def y(self, value):
+        """Sets the value for y"""
+        if (type(value) is not int):
+            raise TypeError("y must be an integer")
+
+        if value < 0:
+            raise ValueError("y must be >= 0")
+
+        self.__y = value
+
+    def area(self):
+        """Defines the area of the rectangle"""
+        return (self.__height * self.__width)
+
+    def display(self):
+        """Displays the rectangle using # """
+        for y in range(self.y):
+            print("")
+        for row in range(self.__height):
+            for x in range(self.x):
+                print(" ", end="")
+            for column in range(self.__width):
+                print("#", end="")
+            print()
+
+    def __str__(self):
+        """Defines a format for the string representation of the class"""
+        return f"[Rectangle] ({self.id}) {self.__x}/{self.__y} - \
+{self.__width}/{self.__height}"
+
+    def update(self, *args, **kwargs):
+        """Assigns an argument to each attribute"""
+
+        if args and len(args) != 0:
+            a = 0
+            for arg in args:
+                if a == 0:
+                    if arg is None:
+                        self.__init__(self.width, self.height, self.x, self.y)
+                    else:
+                        self.id = arg
+                elif a == 1:
+                    self.width = arg
+                elif a == 2:
+                    self.height = arg
+                elif a == 3:
+                    self.x = arg
+                elif a == 4:
+                    self.y = arg
+                a += 1
+
+        elif kwargs and len(kwargs) != 0:
+            for k, v in kwargs.items():
+                if k == "id":
+                    if v is None:
+                        self.__init__(self.width, self.height, self.x, self.y)
+                    else:
+                        self.id = v
+                elif k == "width":
+                    self.width = v
+                elif k == "height":
+                    self.height = v
+                elif k == "x":
+                    self.x = v
+                elif k == "y":
+                    self.y = v
+
+    def to_dictionary(self):
+        """Returns the dictionary representation of a Rectangle"""
+
+        obj_dictionary = {'id': self.id, 'width': self.__width,
+                          'height': self.__height, 'x': self.__x,
+                          'y': self.__y}
+
+        return obj_dictionary
