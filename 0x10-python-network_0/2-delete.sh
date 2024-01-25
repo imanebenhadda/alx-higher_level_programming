@@ -1,3 +1,3 @@
 #!/bin/bash
-# cURL M3thod
-#curl -sX DELETE "$1"
+# Bash script
+curl -s -X DELETE "$1"
